@@ -13,17 +13,35 @@ document.addEventListener("DOMContentLoaded", () => {
     a.addEventListener("click", () => drawer.classList.remove("is-open"))
   );
 
-  // Contact form: no backend wired up yet, so just confirm receipt in-page.
+  // Contact form: submits to Formspree, which emails the studio inbox directly.
   const form = document.querySelector("#contact-form");
   if (form) {
-    form.addEventListener("submit", (e) => {
+    form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const note = document.querySelector("#form-status");
-      if (note) {
-        note.textContent =
-          "Thanks; this form isn't wired to a live inbox yet. For now, please email info@saveriadesignstudio.com directly.";
+      const submitBtn = form.querySelector('button[type="submit"]');
+
+      if (submitBtn) submitBtn.disabled = true;
+      if (note) note.textContent = "Sending...";
+
+      try {
+        const response = await fetch(form.action, {
+          method: "POST",
+          body: new FormData(form),
+          headers: { Accept: "application/json" },
+        });
+
+        if (response.ok) {
+          if (note) note.textContent = "Thank you. Your message has been sent; we'll follow up shortly.";
+          form.reset();
+        } else {
+          if (note) note.textContent = "Something went wrong. Please email info@saveriadesignstudio.com directly.";
+        }
+      } catch (err) {
+        if (note) note.textContent = "Something went wrong. Please email info@saveriadesignstudio.com directly.";
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
       }
-      form.reset();
     });
   }
 });
