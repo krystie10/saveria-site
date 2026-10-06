@@ -1137,3 +1137,140 @@ p {
   font-size: 0.85rem;
   color: var(--ink);
 }
+
+/* ============================================================
+   Press
+   ============================================================ */
+
+.press-card {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: 10px;
+  padding: clamp(2.5rem, 6vw, 5rem);
+  background: radial-gradient(ellipse 90% 110% at 18% 10%, var(--burgundy-bright) 0%, var(--burgundy) 36%, #4a0f18 68%, var(--burgundy-deep) 100%);
+  box-shadow: var(--shadow-deep);
+  color: var(--ivory);
+}
+
+.press-card::after {
+  content: "";
+  position: absolute;
+  inset: 14px;
+  border: 1px solid rgba(227, 198, 145, 0.28);
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+.press-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.62fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: center;
+}
+
+.press-card__image {
+  margin: 0;
+  border-radius: 4px;
+  box-shadow: 0 30px 60px -28px rgba(0, 0, 0, 0.75);
+}
+
+.press-card__image::after {
+  inset: 8px;
+}
+
+@media (max-width: 900px) {
+  .press-card {
+    grid-template-columns: 1fr;
+  }
+  .press-card__image {
+    order: -1;
+  }
+}
+
+.press-card__meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.9rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--brass-light);
+}
+
+.press-card__meta span + span::before {
+  content: "";
+  display: inline-block;
+  width: 28px;
+  height: 1px;
+  margin-right: 0.9rem;
+  vertical-align: middle;
+  background: linear-gradient(90deg, var(--brass-light), var(--brass));
+}
+
+.press-card__quote {
+  margin: clamp(1.75rem, 4vw, 3rem) 0 0;
+  max-width: 22ch;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: clamp(2.1rem, 4.8vw, 3.8rem);
+  line-height: 1.1;
+  color: var(--ivory);
+}
+
+.press-card__headline {
+  margin-top: 1.5rem;
+  max-width: 46ch;
+  font-size: 1.1rem;
+  color: var(--ivory-soft);
+}
+
+.press-card__byline {
+  margin-top: 0.9rem;
+  font-size: 0.78rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(247, 239, 227, 0.55);
+}
+
+.press-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: clamp(1.75rem, 4vw, 2.75rem);
+}
+
+.press-note {
+  margin-top: 2.25rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--ivory-soft);
+}
+
+.press-note a {
+  color: var(--brass-light);
+  border-bottom: 1px solid rgba(227, 198, 145, 0.4);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.press-note a:hover {
+  color: var(--ivory);
+  border-color: var(--ivory);
+}
+
+/* Six nav links plus the CTA no longer fit side by side between 900px and
+   about 1100px (iPad landscape included), so use the menu button there. */
+@media (max-width: 1100px) {
+  .nav__links {
+    display: none;
+  }
+  .nav > a.btn {
+    display: none;
+  }
+  .nav-toggle {
+    display: flex;
+  }
+}
